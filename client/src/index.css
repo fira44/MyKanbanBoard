@@ -87,6 +87,86 @@ button:focus-visible {
   outline: none;
   width: 200px;
 }
+.align {
+  display: flex;
+  gap: 30px; /* Optional: Adds space between items */
+}
+.add__task{
+  top: 50
+}
+.backlog__container{
+  
+  /*   */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 32px;
+gap: 16px;
+
+width: 200px;
+min-height: 350px;
+max-height: 350px;
+
+
+/* gray / 2 */
+background: #3e3737;
+border-radius: 16px;
+/* Backlog */
+top : 100px;
+left : 0;
+/* heading / 37 */
+font-family: 'SF Pro Display';
+font-style: normal;
+font-weight: 700;
+font-size: 37px;
+line-height: 44px;
+flex-grow: 1;
+/* identical to box height, or 119% */
+
+/* gray / 9 white */
+color: #FFFFFF;
+
+}
+.task__card{
+  /* ticket
+
+menu overlay modal popup popover alert
+*/
+
+/* Auto layout */
+display: block;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 8px;
+
+width: 150px;
+height: 60px;
+
+/* core/pink */
+background: #C440A1;
+/* shadow/level 3 */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12), 0px 16px 32px rgba(0, 0, 0, 0.08);
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+.backlog__wrapper {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align to the left */
+}
+.backlog__tasks {
+  max-height: none; /* Removes height limit */
+  overflow-y: auto; /* Enables scrolling for excess tasks */
+  flex-grow: 1; /* Ensures only this one expands */
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {
