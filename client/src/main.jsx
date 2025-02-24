@@ -1,26 +1,26 @@
+import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './App.jsx';
 import CreateBoard from "./CreateBoard.jsx";
+import EditTask from './EditTask.jsx';
 import './index.css';
-import Task from "./Task.jsx";
+import TaskContainer from './TaskContainer.jsx';
 
+const RootComponent = () => {
+  const [tasks, setTasks] = useState([]); 
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="CreateBoard" element={<CreateBoard />} />
+        <Route path="task" element={<TaskContainer tasks={tasks} setTasks={setTasks} />} />
+        <Route path="edit" element={<EditTask tasks={tasks} setTasks={setTasks} />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 const root = document.getElementById("root");
-
-ReactDOM.createRoot(root).render(
-  <BrowserRouter>
-   <Routes>
-    <Route path = "/" element = { <App/>}>
-
-    </Route>
-
-    <Route path = "CreateBoard" element = {<CreateBoard/>}>
-
-    </Route>
-
-    <Route path = "task" element = {<Task/>}></Route>
-   </Routes>
-
-  </BrowserRouter>
-)
+ReactDOM.createRoot(root).render(<RootComponent />);

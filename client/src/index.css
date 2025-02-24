@@ -88,8 +88,8 @@ button:focus-visible {
   width: 200px;
 }
 .align {
-  display: flex;
-  gap: 30px; /* Optional: Adds space between items */
+  display:flex;
+  gap: 30px;
 }
 .add__task{
   top: 50
@@ -150,6 +150,14 @@ background: #C440A1;
 /* shadow/level 3 */
 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.12), 0px 16px 32px rgba(0, 0, 0, 0.08);
 border-radius: 8px;
+word-wrap: break-word;
+overflow: hidden;
+align-items: flex-start;
+font-size: clamp(5px, 4vw, 10px); 
+position: relative;
+line-height: 1.2;
+;
+
 
 /* Inside auto layout */
 flex: none;
@@ -157,9 +165,19 @@ order: 1;
 flex-grow: 0;
 }
 .backlog__wrapper {
-  display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: flex-start; /* Align to the left */
+}
+.edit__button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: #004d81;
+  color: white;
+  border: none;
+  padding: 4px 6px;
+  font-size: 12px;
+  border-radius: 3px;
 }
 .backlog__tasks {
   max-height: none; /* Removes height limit */

@@ -1,12 +1,14 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import { useNavigate } from "react-router";
 
 
-const TaskContainer = () => {
-    const [tasks, setTasks] = useState([]);
+const TaskContainer = ({tasks, setTasks}) => {
+    const navigate = useNavigate();
     const addTask = () =>{
         if (taskRef.current.value.trim() === "") return;
-        setTasks([...tasks, taskRef.current.value]);
-        taskRef.current.value = ""; // Clear task input 
+        const newTask = {text : taskRef.current.value, color : "#C440A1"}
+        setTasks([...tasks, newTask]);
+        taskRef.current.value = " "; // Clear task input 
     }
     const taskRef = useRef(null);
     function handleSubmit(event){
@@ -18,10 +20,11 @@ const TaskContainer = () => {
      <div className="align">
       <div className="backlog__wrapper"> 
        <div className="backlog__container backlog__tasks"> BACKLOG 
-        {tasks.map((task) =>
-            <div className="task__card">
-                {task}
-            </div>
+        {tasks.map((task, index) =>
+            <div className="task__card" style={{backgroundColor : task.color}}>
+             <div className="task__text" >{task.text}</div>   
+             <button className="edit__button" onClick={() => navigate(`/edit`, {state : {task,index}})}>EDIT </button>
+            </div> 
         )}
        </div>
       </div>
