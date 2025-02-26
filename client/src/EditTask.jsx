@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const EditTask = ({tasks, setTasks}) => {
+const EditTask = ({tasks, setTasks, taskBoard, setTaskBoard}) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { task, index} = location.state; 
+    const { task,index} = location.state; 
     const [newText, setNewText] = useState(task.text);
     const [newColor, setNewColor] = useState(task.color);
 
     const handleSave = () => {
-        const updatedTasks = [...tasks];
-        const newTask = {text : newText, color : newColor}
+        const updatedTasks = [...taskBoard[task.category]];
+        const newTask = {text : newText, color : newColor, id : task.id, category : task.category}
         updatedTasks[index] = newTask;
-        setTasks(updatedTasks); 
+        setTaskBoard((prevTasks) => ({
+            ...prevTasks,
+            [task.category] : updatedTasks
+        })); 
         navigate(-1); 
     };
 

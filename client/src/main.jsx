@@ -9,14 +9,20 @@ import TaskContainer from './TaskContainer.jsx';
 
 const RootComponent = () => {
   const [tasks, setTasks] = useState([]); 
+  const [taskBoard, setTaskBoard]= useState({
+    backlog : [],
+    todo:[],
+    inprogress:[],
+    designed:[]
+})
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="CreateBoard" element={<CreateBoard />} />
-        <Route path="task" element={<TaskContainer tasks={tasks} setTasks={setTasks} />} />
-        <Route path="edit" element={<EditTask tasks={tasks} setTasks={setTasks} />} />
+        <Route path="task" element={<TaskContainer tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
+        <Route path="edit" element={<EditTask tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
       </Routes>
     </BrowserRouter>
   );

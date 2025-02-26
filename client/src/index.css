@@ -94,41 +94,26 @@ button:focus-visible {
 .add__task{
   top: 50
 }
-.backlog__container{
-  
-  /*   */
+.backlog__container, .todo__container, .inprogress__container, .designed__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  gap: 16px;
+  flex-grow: 1;
+  width: 200px;
+  height: 350px;
 
-/* Auto layout */
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 32px;
-gap: 16px;
+  background: #3e3737;
+  border-radius: 16px;
 
-width: 200px;
-min-height: 350px;
-max-height: 350px;
-
-
-/* gray / 2 */
-background: #3e3737;
-border-radius: 16px;
-/* Backlog */
-top : 100px;
-left : 0;
-/* heading / 37 */
-font-family: 'SF Pro Display';
-font-style: normal;
-font-weight: 700;
-font-size: 37px;
-line-height: 44px;
-flex-grow: 1;
-/* identical to box height, or 119% */
-
-/* gray / 9 white */
-color: #FFFFFF;
-
+  font-family: 'SF Pro Display';
+  font-weight: 700;
+  font-size: 37px;
+  line-height: 30px;
+  color: #FFFFFF;
 }
+
 .task__card{
   /* ticket
 
@@ -136,7 +121,6 @@ menu overlay modal popup popover alert
 */
 
 /* Auto layout */
-display: block;
 flex-direction: column;
 align-items: flex-start;
 padding: 24px;
@@ -156,30 +140,38 @@ align-items: flex-start;
 font-size: clamp(5px, 4vw, 10px); 
 position: relative;
 line-height: 1.2;
+margin-bottom: 12px;
+margin-top: 12px;
+z-index: 10
 ;
-
-
-/* Inside auto layout */
-flex: none;
-order: 1;
-flex-grow: 0;
 }
-.backlog__wrapper {
-  flex-direction: column; /* Stack items vertically */
-  align-items: flex-start; /* Align to the left */
-}
+
 .edit__button {
   position: absolute;
   bottom: 5px;
   right: 5px;
   background-color: #004d81;
   color: white;
-  border: none;
-  padding: 4px 6px;
+  padding: 3px 5px;
   font-size: 12px;
   border-radius: 3px;
 }
 .backlog__tasks {
+  max-height: none; 
+  overflow-y: auto;
+  flex-grow: 1; /* Ensures only this one expands */
+}
+.todo__tasks {
+  max-height: none; /* Removes height limit */
+  overflow-y: auto; /* Enables scrolling for excess tasks */
+  flex-grow: 1; 
+}
+.inprogress__tasks {
+  max-height: none; /* Removes height limit */
+  overflow-y: auto; /* Enables scrolling for excess tasks */
+  flex-grow: 1; /* Ensures only this one expands */
+}
+.designed__tasks {
   max-height: none; /* Removes height limit */
   overflow-y: auto; /* Enables scrolling for excess tasks */
   flex-grow: 1; /* Ensures only this one expands */
