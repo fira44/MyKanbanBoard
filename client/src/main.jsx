@@ -20,7 +20,7 @@ const RootComponent = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="CreateBoard" element={<CreateBoard />} />
+        <Route path="CreateBoard" element={<CreateBoard  taskBoard = {taskBoard} setTaskBoard={setTaskBoard}/>} />
         <Route path="task" element={<TaskContainer tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
         <Route path="edit" element={<EditTask tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
       </Routes>

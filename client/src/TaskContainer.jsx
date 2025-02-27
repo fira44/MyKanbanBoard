@@ -1,9 +1,35 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 
 const TaskContainer = ({tasks, setTasks, taskBoard, setTaskBoard}) => {
+    const location = useLocation();
+    const {boardname} = location.state;
+    useEffect(() => {
+        const fetchBoard = async () => {
+            const boardId = boardname; // Change this dynamically later
+            try {
+                const response = await fetch(`http://localhost:5000/boards/${boardname}`);
+                if (!response.ok) throw new Error("Board not found");
+                const data = await response.json();
+                setTaskBoard(data.taskBoard); // Update the state with taskBoard data
+            } catch (error) {
+                setError(error.message); // Update error state if there's an error
+                console.error(error);
+            }
+        };
+
+        fetchBoard(); // Call the fetchBoard function when the component mounts
+    }, []); // Empty dependency array ensures this runs only once on mount
+    const updateBoard = async (newTaskBoard) => {
+        const boardId = boardname; 
+        await fetch(`http://localhost:5000/boards/${boardId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ taskBoard: newTaskBoard }),
+        });
+    };
     const navigate = useNavigate();
     const categories = ["backlog", "todo", "inprogress" , "designed"]
     const columnNames = {
@@ -23,6 +49,7 @@ const TaskContainer = ({tasks, setTasks, taskBoard, setTaskBoard}) => {
             ...prevTasks,
             [newTask.category]: [...prevTasks[newTask.category], newTask]
         }));
+        updateBoard(taskBoard);
         taskRef.current.value = " "; // Clear task input 
     }
     const onDragEnd = (result) => {
@@ -43,6 +70,7 @@ const TaskContainer = ({tasks, setTasks, taskBoard, setTaskBoard}) => {
             ...prevTasks, 
             [movedTask.category] : updatedBoard
         }))
+        updateBoard(taskBoard);
         setTasks(updatedTasks);
     } 
     const deleteTask = (task) =>{
@@ -51,6 +79,7 @@ const TaskContainer = ({tasks, setTasks, taskBoard, setTaskBoard}) => {
             ...prevTasks,
             [task.category] : prevTasks[task.category].filter((tsk) => tsk.id !== task.id)
         }))
+        updateBoard(taskBoard);
 
     }
     const taskRef = useRef(null);
