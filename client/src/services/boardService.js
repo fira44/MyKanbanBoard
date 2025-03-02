@@ -1,5 +1,6 @@
 const BASE_URL = "http://localhost:5000/boards";
 
+//Fetch to get data from database
 export const fetchBoard = async (boardId) => {
     try {
         const response = await fetch(`${BASE_URL}/${boardId}`);
@@ -10,6 +11,8 @@ export const fetchBoard = async (boardId) => {
         throw error;
     }
 };
+
+//Create a new board 
 export const createBoard = async (boardId, emptyBoard) => {
     try{
         await fetch(`${BASE_URL}`, {
@@ -23,6 +26,8 @@ export const createBoard = async (boardId, emptyBoard) => {
         throw error;
     }
 }
+
+//Update a board
 export const updateBoard = async (boardId, newTaskBoard) => {
     try {
         await fetch(`${BASE_URL}/${boardId}`, {

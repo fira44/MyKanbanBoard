@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 dotenv.config();
 const app = express();
-const PORT = 5000;
+const PORT =  process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
@@ -15,8 +15,10 @@ const BoardSchema = new mongoose.Schema({
   boardId: {type : String, required : true, unique : true},
   taskBoard : {type : Object}
 })
+
 const Board = mongoose.model("Board", BoardSchema);
 
+//Create a new board
 app.post("/boards", async (req,res) => {
   try{
     const {boardId, taskBoard} = req.body;
@@ -34,6 +36,7 @@ app.post("/boards", async (req,res) => {
   }
 })
 
+//Find a board with its id
 app.get("/boards/:id", async(req,res) => {
   try{
     const board = await Board.findOne({boardId : req.params.id});
@@ -46,6 +49,7 @@ app.get("/boards/:id", async(req,res) => {
   }
 })
 
+//Update a board with its id
 app.put("/boards/:id", async(req,res) =>{
   try{
     const board = await Board.findOneAndUpdate({
@@ -61,10 +65,7 @@ app.put("/boards/:id", async(req,res) =>{
   }
 })
 
-app.get("/", (req,res) => {
-  res.send(process.env.MONGO_URI);
-})
-
+//Check if the server is running.
 app.listen(PORT, () => {
-  console.log("Server is running on 5000")
+  console.log(`Server is running on ${PORT}`);
 })
