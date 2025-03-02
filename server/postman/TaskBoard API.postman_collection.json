@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "8ccaaefa-9c4c-4956-bf97-def544f7ce59",
+		"name": "TaskBoard API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41252596"
+	},
+	"item": [
+		{
+			"name": "Create a board",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"boardId\": \"newboard2\",\r\n  \"taskBoard\": {\r\n    \"backlog\": [],\r\n    \"todo\": [],\r\n    \"inprogress\": [],\r\n    \"designed\": []\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/boards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"boards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/boards/newboard2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"boards",
+						"newboard2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a board",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"boardId\": \"newboard2\",\r\n  \"taskBoard\": {\r\n    \"backlog\": [\r\n      {\r\n        \"id\": \"0011709487745123\",\r\n        \"title\": \"Fix login bug\",\r\n        \"text\": \"Investigate and resolve login issue.\",\r\n        \"category\": \"backlog\",\r\n        \"color\": \"black\"\r\n      }\r\n    ],\r\n    \"todo\": [],\r\n    \"inprogress\": [],\r\n    \"designed\": []\r\n  }\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/boards/newboard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"boards",
+						"newboard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

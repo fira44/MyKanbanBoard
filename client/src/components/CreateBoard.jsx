@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import { createBoard } from "../services/boardService";
 
-const CreateBoard = ({taskBoard, setTaskBoard}) => {
+const CreateBoard = ({setTaskBoard}) => {
     const emptyBoard = {
         backlog: [],
         todo: [],
@@ -12,21 +13,14 @@ const CreateBoard = ({taskBoard, setTaskBoard}) => {
     const navigate = useNavigate();
     async function handleSubmit(event){
         event.preventDefault();
-        await createBoard();
-        console.log(boardnameRef.current.value);
+        setTaskBoard(emptyBoard); // Create an empty task board.
+        const boardname = boardnameRef.current.value;
+        await createBoard(boardname , emptyBoard);
+        navigate("/task", {state : {boardname}});
     }
-    const createBoard = async () => {
-        setTaskBoard(emptyBoard);
-        await fetch(`http://localhost:5000/boards`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ boardId :  boardnameRef.current.value, taskBoard: emptyBoard }),
-    })
-    const boardname = boardnameRef.current.value;
-    navigate("/task", {state : {boardname}});
-}
+
     return (
-    <div className="create_board">
+    <div className="create__board">
         <div className="top-left"> Arif Evren</div>
         <form className="login__form" onSubmit={handleSubmit}>
          <label htmlFor="boardname">
@@ -34,7 +28,7 @@ const CreateBoard = ({taskBoard, setTaskBoard}) => {
          </label>
          <input id = "boardname" name = "boardname" type="text" required ref = {boardnameRef}>
          </input>
-         <button onClick={handleSubmit} >CREATE onClick</button>
+         <button onClick={handleSubmit} >CREATE A BOARD</button>
         </form>
     </div>
     )

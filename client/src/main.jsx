@@ -2,13 +2,13 @@ import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from './App.jsx';
-import CreateBoard from "./CreateBoard.jsx";
-import EditTask from './EditTask.jsx';
+import { AddTask } from './components/AddTask.jsx';
+import CreateBoard from "./components/CreateBoard.jsx";
+import EditTask from './components/EditTask.jsx';
+import TaskContainer from './components/TaskContainer.jsx';
 import './index.css';
-import TaskContainer from './TaskContainer.jsx';
 
 const RootComponent = () => {
-  const [tasks, setTasks] = useState([]); 
   const [taskBoard, setTaskBoard]= useState({
     backlog : [],
     todo:[],
@@ -19,10 +19,11 @@ const RootComponent = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="CreateBoard" element={<CreateBoard  taskBoard = {taskBoard} setTaskBoard={setTaskBoard}/>} />
-        <Route path="task" element={<TaskContainer tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
-        <Route path="edit" element={<EditTask tasks={tasks} setTasks={setTasks} taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
+        <Route path="/app" element={<App />} />
+        <Route path="/" element={<CreateBoard setTaskBoard={setTaskBoard}/>} />
+        <Route path="task" element={<TaskContainer taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
+        <Route path="edit" element={<EditTask taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
+        <Route path="addtask" element={<AddTask setTaskBoard={setTaskBoard} />} />
       </Routes>
     </BrowserRouter>
   );
