@@ -5,7 +5,7 @@ import App from './App.jsx';
 import { AddTask } from './components/AddTask.jsx';
 import CreateBoard from "./components/CreateBoard.jsx";
 import EditTask from './components/EditTask.jsx';
-import TaskContainer from './components/TaskContainer.jsx';
+import Tasks from './components/Tasks.jsx';
 import './index.css';
 
 const RootComponent = () => {
@@ -21,7 +21,7 @@ const RootComponent = () => {
       <Routes>
         <Route path="/app" element={<App />} />
         <Route path="/" element={<CreateBoard setTaskBoard={setTaskBoard}/>} />
-        <Route path="task" element={<TaskContainer taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
+        <Route path="task" element={<Tasks taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
         <Route path="edit" element={<EditTask taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
         <Route path="addtask" element={<AddTask setTaskBoard={setTaskBoard} />} />
       </Routes>

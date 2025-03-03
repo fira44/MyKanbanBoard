@@ -5,7 +5,7 @@ import { fetchBoard, updateBoard } from "../services/boardService.js";
 import { TaskColumn } from "./TaskColumn.jsx";
 
 
-const TaskContainer = ({taskBoard, setTaskBoard}) => {
+const Tasks = ({taskBoard, setTaskBoard}) => {
     const location = useLocation();
     const {boardname} = location.state;
     const navigate = useNavigate();
@@ -50,7 +50,6 @@ const TaskContainer = ({taskBoard, setTaskBoard}) => {
                 ...prevTasks,
                 [task.category]: prevTasks[task.category].filter((tsk) => tsk.id !== task.id),
             };
-    
             updateBoard(boardname, updatedBoard);
             return updatedBoard;
         });
@@ -80,9 +79,9 @@ const TaskContainer = ({taskBoard, setTaskBoard}) => {
         >
          ADD TASK
         </button>
-</div>
+    </div>
     </div> 
     )
 }
 
-export default TaskContainer;
+export default Tasks;
