@@ -23,7 +23,7 @@ const RootComponent = () => {
         <Route path="/" element={<CreateBoard setTaskBoard={setTaskBoard}/>} />
         <Route path="task" element={<Tasks taskBoard={taskBoard} setTaskBoard={setTaskBoard}/>} />
         <Route path="edit" element={<EditTask taskBoard={taskBoard} setTaskBoard={setTaskBoard} />} />
-        <Route path="addtask" element={<AddTask setTaskBoard={setTaskBoard} />} />
+        <Route path="addtask" element={<AddTask setTaskBoard={setTaskBoard} taskBoard={taskBoard}/>} />
       </Routes>
     </BrowserRouter>
   );

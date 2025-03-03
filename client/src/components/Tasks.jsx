@@ -27,10 +27,13 @@ const Tasks = ({taskBoard, setTaskBoard}) => {
     //Task categories
     const categories = ["backlog", "todo", "inprogress" , "designed"]
 
-    const onDragEnd = (result) => {
+    const onDragEnd = async (result) => {
         if (!result.destination) return;
         const movedTask = taskBoard[result.source.droppableId].splice((result.source.index), 1)[0]; 
-        deleteTask(movedTask);   //Delete the task from the previous category
+        setTaskBoard((prevTasks) => ({  //Remove the moved task from its previous category
+            ...prevTasks,
+            [movedTask.category]: prevTasks[movedTask.category].filter((tsk) => tsk.id !== movedTask.id),
+        }));
         const newCategory = result.destination.droppableId;
         movedTask.category = newCategory;
         const updatedBoard = taskBoard[movedTask.category];
@@ -41,18 +44,15 @@ const Tasks = ({taskBoard, setTaskBoard}) => {
             ...prevTasks, 
             [movedTask.category] : updatedBoard
         }))
-        updateBoard(boardname, taskBoard);  //Update database
+        await updateBoard(boardname, taskBoard);  //Update database
     } 
     // Delete a task
-    const deleteTask = (task) => {
-        setTaskBoard((prevTasks) => {
-            const updatedBoard = {
-                ...prevTasks,
-                [task.category]: prevTasks[task.category].filter((tsk) => tsk.id !== task.id),
-            };
-            updateBoard(boardname, updatedBoard);
-            return updatedBoard;
-        });
+    const deleteTask = async (task) => {
+        setTaskBoard((prevTasks) => ({
+            ...prevTasks,
+            [task.category]: prevTasks[task.category].filter((tsk) => tsk.id !== task.id),
+        }));
+        await updateBoard(boardname, taskBoard);
     };
 
     return(

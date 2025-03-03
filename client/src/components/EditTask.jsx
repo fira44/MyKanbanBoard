@@ -10,20 +10,21 @@ const EditTask = ({taskBoard, setTaskBoard}) => {
     const [newColor, setNewColor] = useState(task.color);
     const [newTitle, setNewTitle] = useState(task.title);
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const updatedTasks = [...taskBoard[task.category]];
         const newTask = {text : newText, color : newColor, id : task.id, category : task.category, title : newTitle}
         updatedTasks[index] = newTask;
-        setTaskBoard((prevTasks) => {
-            const newBoard =  {
+        setTaskBoard((prevTasks) =>({
             ...prevTasks,
             [task.category] : updatedTasks
-        }
-        updateBoard(boardname, newBoard); //update database
-        return newBoard;
-    }); 
+        }));
+        await updateBoard(boardname, { //update database
+            ...taskBoard, 
+            [task.category]: updatedTasks
+        });
         navigate(-1); 
-    };
+        return taskBoard;
+    };  
 
     return (
         <div>

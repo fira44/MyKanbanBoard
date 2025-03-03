@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { updateBoard } from "../services/boardService";
 
-export const AddTask = ({setTaskBoard}) => {
+export const AddTask = ({setTaskBoard, taskBoard}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const {boardname} = location.state;
@@ -11,20 +11,21 @@ export const AddTask = ({setTaskBoard}) => {
     const [title, setTitle] = useState();
     const [category, setCategory] = useState("backlog");
 
-    const addTask = () =>{
+    const addTask = async () =>{
         const newTask = {text : text, 
         color : color, 
         id : Date.now().toString(),
         category : category,
         title : title}
-        setTaskBoard((prevTasks) =>{
-            const updatedBoard = {
+        const updatedTasks = {
+            ...taskBoard,
+            [newTask.category]: [...taskBoard[newTask.category], newTask]
+        };
+        setTaskBoard((prevTasks) =>({
             ...prevTasks,
             [newTask.category]: [...prevTasks[newTask.category], newTask]
-            }
-            updateBoard(boardname, updatedBoard);
-            return updatedBoard;
-        });
+        }))
+        await updateBoard(boardname,updatedTasks); 
     }
 
     const handleSubmit = () => {
