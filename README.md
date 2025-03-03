@@ -1,6 +1,6 @@
 1- Clone repository
 
-    git clone <your-repo-url>
+    git clone https://github.com/fira44/MyKanbanBoard.git
     
     cd KanbanBoard
 
