@@ -48,11 +48,15 @@ const Tasks = ({taskBoard, setTaskBoard}) => {
     } 
     // Delete a task
     const deleteTask = async (task) => {
+        const updatedTasks = {
+            ...taskBoard,
+            [task.category]: taskBoard[task.category].filter((tsk) => tsk.id !== task.id),
+        }
         setTaskBoard((prevTasks) => ({
             ...prevTasks,
             [task.category]: prevTasks[task.category].filter((tsk) => tsk.id !== task.id),
         }));
-        await updateBoard(boardname, taskBoard);
+        await updateBoard(boardname, updatedTasks);
     };
 
     return(
